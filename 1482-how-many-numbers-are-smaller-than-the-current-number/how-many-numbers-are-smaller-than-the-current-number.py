@@ -1,11 +1,20 @@
 class Solution(object):
     def smallerNumbersThanCurrent(self, nums):
-        countMap={}
-        sorted_nums=sorted(nums)
-        for i,num in enumerate(sorted_nums):
-            if not num in countMap:
-                countMap[num]=i
-        return [countMap[num] for num in nums]
+        freq=[0]*101
+        for num in nums:
+            freq[num]+=1
+        
+        for i in range(1,101):
+            freq[i]+=freq[i-1]
+        res=[]
+        for num in nums:
+            if num==0:
+                res.append(0)
+            else:
+                res.append(freq[num-1])
+        return res
+
+
 
 
         
