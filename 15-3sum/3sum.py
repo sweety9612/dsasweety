@@ -5,7 +5,7 @@ class Solution(object):
         
         for i in range(len(nums)):
             if i > 0 and nums[i] == nums[i - 1]:
-                continue  # skip duplicate 'a'
+                continue 
 
             a = nums[i]
             j, k = i + 1, len(nums) - 1
@@ -20,7 +20,6 @@ class Solution(object):
                     k -= 1
                 else:
                     triplets.append([a, b, c])
-                    # Skip duplicates for b and c
                     while j < k and nums[j] == b:
                         j += 1
                     while j < k and nums[k] == c:
