@@ -1,25 +1,14 @@
 class Solution(object):
     def nextGreaterElements(self, nums):
-        arr=[]
-        nxtgr1={}
-        res=[-1]*len(nums)
-        n=2*len(nums)
-        size=len(nums)
-        for i in range(2*n-1,-1,-1):
-            while len(arr)>0 and nums[i%size]>=arr[-1]:
-                arr.pop()
-            if i<size:
-                if len(arr)>0 :
-                    res[i]=arr[-1]
+        stack=[]
+        ans=[-1]*len(nums)
+        for i in range(2*(len(nums))-1,-1,-1):
+            i=i%len(nums)
+            while stack and nums[stack[-1]]<=nums[i]:
+                stack.pop()
+            if stack:
+                ans[i]=nums[stack[-1]]
+            stack.append(i)
+        return ans
         
-            
-            arr.append(nums[i%size])
-        print(res)
-        
-       
-        return res
-
-
-
-
         
