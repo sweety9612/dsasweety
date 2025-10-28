@@ -1,15 +1,15 @@
 class Solution(object):
     def maxArea(self, height):
+        n=len(height)
+        maxleft=height[0]
+        maxright=height[n-1]
         i=0
-        j=len(height)-1
-        area=0
-        maxarea=0
-
+        j=n-1
+        maxarea=(min(maxleft,maxright)*(j-i))
         while i<j:
-            minh=min(height[i],height[j])
-            wid=j-i
-            area=minh*wid
-            maxarea=max(maxarea,area)
+            maxleft=height[i]
+            maxright=height[j]
+            maxarea=max(maxarea,(min(maxleft,maxright)*(j-i)))
             if height[i]<height[j]:
                 i+=1
             else:
