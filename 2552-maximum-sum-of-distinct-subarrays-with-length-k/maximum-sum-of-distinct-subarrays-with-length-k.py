@@ -1,35 +1,36 @@
 class Solution(object):
     def maximumSubarraySum(self, nums, k):
-        from collections import defaultdict
-        
-        counts = defaultdict(int)
-        cursum = 0
-        maxsum = 0
+        freq = {}
+        window_sum = 0
+        max_sum = 0
         
         # Initialize first window
         for i in range(k):
-            counts[nums[i]] += 1
-            cursum += nums[i]
+            val = nums[i]
+            freq[val] = freq.get(val, 0) + 1
+            window_sum += val
         
-        if len(counts) == k:
-            maxsum = cursum
+        if len(freq) == k:
+            max_sum = window_sum
         
         # Slide the window
-        for start in range(k, len(nums)):
-            # Remove outgoing element
-            out_num = nums[start - k]
-            counts[out_num] -= 1
-            if counts[out_num] == 0:
-                del counts[out_num]
-            cursum -= out_num
+        for i in range(k, len(nums)):
+            income = nums[i]
+            outgo = nums[i - k]
             
-            # Add incoming element
-            in_num = nums[start]
-            counts[in_num] += 1
-            cursum += in_num
+            # Add incoming
+            freq[income] = freq.get(income, 0) + 1
+            window_sum += income
             
-            # Check uniqueness
-            if len(counts) == k:
-                maxsum = max(maxsum, cursum)
+            # Remove outgoing
+            freq[outgo] -= 1
+            window_sum -= outgo
+            
+            if freq[outgo] == 0:
+                del freq[outgo]
+            
+            # Check distinct condition
+            if len(freq) == k:
+                max_sum = max(max_sum, window_sum)
         
-        return maxsum
+        return max_sum
