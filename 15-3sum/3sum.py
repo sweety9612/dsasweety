@@ -1,28 +1,47 @@
 class Solution(object):
     def threeSum(self, nums):
-        nums.sort()
-        triplets = []
-        
-        for i in range(len(nums)):
+        nums.sort()   # Sort array
+        n = len(nums)
+        res = []      
+
+        for i in range(n - 2):
+            # Skip duplicate
             if i > 0 and nums[i] == nums[i - 1]:
-                continue 
+                continue
 
-            a = nums[i]
-            j, k = i + 1, len(nums) - 1
+            left, right = i + 1, n - 1
+            target = -nums[i]
 
-            while j < k:
-                b, c = nums[j], nums[k]
-                tot = a + b + c
+            while left < right:
+                s = nums[left] + nums[right]
 
-                if tot < 0:
-                    j += 1
-                elif tot > 0:
-                    k -= 1
+                if s == target:
+                    # Found a valid triplet
+                    res.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+
+                    # Skip duplicates for left
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    # Skip duplicates for right
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+
+                elif s < target:
+                    left += 1
                 else:
-                    triplets.append([a, b, c])
-                    while j < k and nums[j] == b:
-                        j += 1
-                    while j < k and nums[k] == c:
-                        k -= 1
+                    right -= 1
 
-        return triplets
+        return res
+
+
+
+            
+
+                
+
+
+
+
+        
