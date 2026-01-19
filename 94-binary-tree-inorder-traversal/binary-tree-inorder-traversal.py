@@ -10,7 +10,7 @@ class Solution(object):
         stack=[]
         node=root
         while True:
-            if node!=None:
+            if not node is None:
                 stack.append(node)
                 node=node.left
             else:
