@@ -1,13 +1,13 @@
-from collections import defaultdict
-
 class Solution(object):
     def majorityElement(self, nums):
-        count=defaultdict(int)
+        target=len(nums)//2
+        count=0
+        dictn={}
         for i in nums:
-            count[i]+=1
-        for i in nums:
-            if count[i]>len(nums)//2:
+            dictn[i]=dictn.get(i,0)+1
+            if dictn[i]>target:
                 return i
+
         
-        
+
         
