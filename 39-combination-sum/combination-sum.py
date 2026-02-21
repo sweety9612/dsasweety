@@ -7,10 +7,10 @@ class Solution(object):
                 return
             if remaining<0:
                 return
-            for choice in range(start,len(candidates)):
-                path.append(candidates[choice])
-                help(choice,path,remaining-candidates[choice])
+            for i in range(start,len(candidates)):
+                path.append(candidates[i])
+                help(i,path,remaining-candidates[i])
                 path.pop()
-            
         help(0,[],target)
         return res
+        
