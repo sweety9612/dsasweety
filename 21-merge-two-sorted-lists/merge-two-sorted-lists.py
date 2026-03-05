@@ -5,36 +5,19 @@
 #         self.next = next
 class Solution(object):
     def mergeTwoLists(self, list1, list2):
-        if list1 is None and list2 is None:
-            return None
-        if list1 is None:
+        if not list1:
             return list2
-        if list2 is None:
+        if not list2:
             return list1
-        prev=ListNode()
-        cur1=list1
-        cur2=list2
-        head=None
-        if cur1.val<=cur2.val:
-            head=cur1
+
+        # Recursive case
+        if list1.val < list2.val:
+            list1.next = self.mergeTwoLists(list1.next, list2)
+            return list1
         else:
-            head=cur2
-        while cur1!=None and cur2!=None:
-            if cur1.val<=cur2.val:
-                prev.next=cur1
-                prev=cur1
-                cur1=cur1.next
-            else:
-                prev.next=cur2
-                prev=cur2
-                cur2=cur2.next
+            list2.next = self.mergeTwoLists(list1, list2.next)
+            return list2
             
-        
-        if cur1:
-            prev.next=cur1
-        if cur2:
-            prev.next=cur2
-        return head
 
 
         
