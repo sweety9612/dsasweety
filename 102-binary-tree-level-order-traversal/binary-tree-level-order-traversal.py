@@ -9,21 +9,23 @@ class Solution(object):
     def levelOrder(self, root):
         if root is None:
             return []
-        res=[]
-        node=deque()
-        node.append(root)
-        while node:
-            size=len(node)
+        res=deque()
+        res.append(root)
+        output=[]
+        while res:
+            size=len(res)
             lev=[]
-            for _ in range(size):
-                child=node.popleft()
-                lev.append(child.val)
-                if child.left:
-                    node.append(child.left)
-                if child.right:
-                    node.append(child.right)
-            res.append(lev)
-        return res
+            for i in range(size):
+                popval=res.popleft()
+                lev.append(popval.val)
+                if popval.left:
+                    res.append(popval.left)
+                if popval.right:
+                    res.append(popval.right)
+            output.append(lev)
+        return output
+                
+        
 
 
         
