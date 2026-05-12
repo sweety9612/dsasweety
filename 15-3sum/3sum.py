@@ -1,45 +1,26 @@
 class Solution(object):
     def threeSum(self, nums):
-        nums.sort()   # Sort array
-        n = len(nums)
-        res = []      
-
-        for i in range(n - 2):
-            # Skip duplicate
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-
-            left, right = i + 1, n - 1
-            target = -nums[i]
-
-            while left < right:
-                s = nums[left] + nums[right]
-
-                if s == target:
-                    # Found a valid triplet
-                    res.append([nums[i], nums[left], nums[right]])
-                    left += 1
-                    right -= 1
-
-                    # Skip duplicates for left
-                    while left < right and nums[left] == nums[left - 1]:
-                        left += 1
-                    # Skip duplicates for right
-                    while left < right and nums[right] == nums[right + 1]:
-                        right -= 1
-
-                elif s < target:
-                    left += 1
+        nums.sort() # [-4,-1,-1,0,1,2]--
+        res=set()
+        for i in range(len(nums)-2):
+            tarsum=0-nums[i]
+            j=i+1
+            k=len(nums)-1
+            cursum=0
+            while j<k:
+                cursum=nums[k]+nums[j]
+                if cursum<tarsum:
+                    j+=1
+                elif cursum>tarsum:
+                    k-=1
                 else:
-                    right -= 1
+                    res.add((nums[i], nums[j], nums[k]))
+                    k-=1
+                    j+=1
+        print(res)
+        return list(res)
 
-        return res
 
-
-
-            
-
-                
 
 
 
