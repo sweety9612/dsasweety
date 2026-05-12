@@ -7,7 +7,6 @@ class Solution(object):
             if i<mini:
                 mini=i
                 maxi=i
-                diff=max(maxi-mini,diff)
             elif i>maxi:
                 maxi=i
                 diff=max(maxi-mini,diff)
