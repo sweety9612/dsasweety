@@ -1,17 +1,16 @@
 class Solution(object):
     def moveZeroes(self, nums):
-        i=0
-        j=0
-        while(j<len(nums)):
-            if nums[j]==0:
-                j+=1
-
+        l,r=0,0
+        while r<len(nums):
+            if nums[r]!=0:
+                temp=nums[l]
+                nums[l]=nums[r]
+                nums[r]=temp
+                r+=1
+                l+=1
             else:
-                temp=nums[i]
-                nums[i]=nums[j]
-                nums[j]=temp
-                i+=1
-                j+=1
-        return i+1
-        
+                r+=1
+        return nums
+            
+            
         
