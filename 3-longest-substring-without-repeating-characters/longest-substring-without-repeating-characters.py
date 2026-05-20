@@ -1,11 +1,20 @@
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
-        word={}
-        left=0
+        unique=set()
+        lastindx={}
+        i,j=0,0
         maxlen=0
-        for right,ch in enumerate(s):
-            if ch in word and word[ch]>=left:
-                left=word[ch]+1
-            word[ch]=right
-            maxlen=max(maxlen,right-left+1)
+        while j<len(s):
+            if s[j] in unique:
+                maxlen=max(maxlen,j-i)
+                i = max(i, lastindx[s[j]] + 1)
+
+                lastindx[s[j]]=j
+                j+=1
+            else:
+                unique.add(s[j])
+                lastindx[s[j]]=j
+                j+=1
+        maxlen=max(maxlen,j-i)
         return maxlen
+                
