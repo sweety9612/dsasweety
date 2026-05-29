@@ -1,29 +1,24 @@
+from collections import Counter
 class Solution(object):
     def findAnagrams(self, s, p):
-        n,m=len(s),len(p)
         res=[]
-        if m>n:
-            return []
-        countp={}
-        for i in p:
-            countp[i]=countp.get(i,0)+1
-        window={}
-        for i in range(m):
-            window[s[i]]=window.get(s[i],0)+1
-
-        if window==countp:
+        pcount=Counter(p)
+        scounter=Counter(s[:len(p)])
+        windowsize=len(p)
+        if pcount==scounter:
             res.append(0)
-        
-        for i in range(m,len(s)):
-            window[s[i]]=window.get(s[i],0)+1
-  
-            left=s[i-m]
-            window[left]-=1
-            if window[left] == 0:
-                del window[left]
-            if window == countp:
-                res.append(i-m+1)
+        for j in range(len(p),len(s)):
+            scounter[s[j]]+=1
+            left=s[j-windowsize]
+            scounter[left]-=1
+            if scounter[left]==0:
+                del scounter[left]
+            if scounter==pcount:
+                res.append(j-windowsize+1)
         return res
+
+
+        
 
             
 
