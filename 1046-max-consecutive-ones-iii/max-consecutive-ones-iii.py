@@ -1,30 +1,25 @@
 from collections import defaultdict
 class Solution(object):
     def longestOnes(self, nums, k):
-        count=defaultdict(int)
-        maxones=0
-        start=0
-        end=0
-        while(end<len(nums)):
-            count[nums[end]]+=1
-            window=end-start+1
-            onecount=count[1]
-            countdiff=window-onecount
-            if countdiff <=k:
-                totones=onecount+countdiff
-                if totones>maxones:
-                    maxones=totones
-                end+=1
-            else:
-                while window-onecount > k:
-                    count[nums[start]]-=1
-                    start+=1
-                    window=end-start+1
-                    onecount=count[1]
-                end+=1
-        return maxones
+        left=0
+        count=0
+        binmap=defaultdict(int)
+        maxone=0
+        for i in range(len(nums)):
+            if nums[i]==0:
+                count+=1
+            while left<=i and count>k:
+                leftbin=nums[left]
+                if leftbin==0:
+                    count-=1
+                left+=1
+            maxone=max(maxone,i-left+1)
+        return maxone
 
 
+            
+                
 
-        
+                
+
         
