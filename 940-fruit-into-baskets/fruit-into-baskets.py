@@ -1,18 +1,27 @@
+from collections import defaultdict
 class Solution(object):
     def totalFruit(self, fruits):
-        left = 0
-        maxfruitcount = 0
-        lastIndex = {}
+        fruitdict=defaultdict(int)
+        left=0
+        maxcount=0
+        for i in range(len(fruits)):
+            if len(fruitdict)==2 and fruits[i] not in fruitdict:
+                maxcount=max(maxcount,sum(fruitdict.values()))
+                while left<=i and len(fruitdict)==2:
+                    if fruitdict.get(fruits[left]):
+                        fruitdict[fruits[left]]-=1
+                        if fruitdict[fruits[left]]==0:
+                            del fruitdict[fruits[left]]
+                    left+=1
+                    
 
-        for right, fruit in enumerate(fruits):
-            lastIndex[fruit] = right
+            fruitdict[fruits[i]]+=1
+        maxcount=max(maxcount,sum(fruitdict.values()))
 
-            if len(lastIndex) > 2:
-                # find fruit with minimum last index
-                removeFruit = min(lastIndex, key=lastIndex.get)
-                left = lastIndex[removeFruit] + 1
-                del lastIndex[removeFruit]
+        return maxcount
+    
+            
 
-            maxfruitcount = max(maxfruitcount, right - left + 1)
 
-        return maxfruitcount
+
+        
