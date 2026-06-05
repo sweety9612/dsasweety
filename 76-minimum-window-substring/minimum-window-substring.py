@@ -1,40 +1,31 @@
+from collections import Counter, defaultdict
+
 class Solution(object):
     def minWindow(self, s, t):
-        if not s or not t:
-            return ""
-
-        dictt = {}
-        for ch in t:
-            dictt[ch] = dictt.get(ch, 0) + 1
-
-        dicts = {}
         left = 0
-        have = 0
-        need = len(dictt)
+        tdict = Counter(t)
+        sdict = defaultdict(int)
 
-        res = ""
-        resLen = float("inf")
+        minsub = ""
+        mini = float('inf')
 
         for right in range(len(s)):
-            ch = s[right]
-            dicts[ch] = dicts.get(ch, 0) + 1
+            if s[right] in tdict:
+                sdict[s[right]] += 1
 
-            # check if this char satisfies requirement
-            if ch in dictt and dicts[ch] == dictt[ch]:
-                have += 1
+            # Shrink while window is valid
+            while left <= right and all(
+                sdict[ch] >= tdict[ch] for ch in tdict
+            ):
+                subs = s[left:right + 1]
 
-            # try shrinking window
-            while have == need:
-                windowLen = right - left + 1
-                if windowLen < resLen:
-                    res = s[left:right+1]
-                    resLen = windowLen
+                if len(subs) < mini:
+                    mini = len(subs)
+                    minsub = subs
 
-                # remove left char
-                leftChar = s[left]
-                dicts[leftChar] -= 1
-                if leftChar in dictt and dicts[leftChar] < dictt[leftChar]:
-                    have -= 1
+                if s[left] in tdict:
+                    sdict[s[left]] -= 1
+
                 left += 1
 
-        return res
+        return minsub
