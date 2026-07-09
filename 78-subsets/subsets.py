@@ -1,16 +1,18 @@
 class Solution(object):
-    def subsets(self, nums):
-        res=[]
-        def help(start,arr):
-            if len(nums)==0:
-                return
-            res.append(arr[:])
-            for i in range(start,len(nums)):
-                arr.append(nums[i])
-                help(i+1,arr)
-                arr.pop()
-        help(0,[])
-        return res
+    
 
-        
-        
+
+    def subsets(self, nums):
+        ans=[]
+        def helper(start,nums,ans,arr):
+            if start==len(nums):
+                ans.append(arr[:])
+                return 
+            arr.append(nums[start])
+            helper(start+1,nums,ans,arr)
+            arr.pop()
+            helper(start+1,nums,ans,arr)
+            
+        helper(0,nums,ans,[])
+        return ans
+      
